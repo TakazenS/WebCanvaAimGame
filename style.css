@@ -1,0 +1,105 @@
+@font-face {
+    font-family: 'DM_Sans';
+    src: url('./fonts/DM\ sans/DMSans-VariableFont_opsz,wght.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'DM_Sans_Italic';
+    src: url('./fonts/DM\ sans/DMSans-Italic-VariableFont_opsz,wght.ttf') format('truetype');
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 'DM_Sans', 'DM_Sans_Italic';
+}
+
+.body {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.main {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.wrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 600px;
+    height: 600px;
+}
+
+.canvas {
+    display: block;
+    background-color: rgb(243, 243, 243);
+    border-radius: 15px;
+    border: 2px solid #3d3bb3;
+}
+
+.feedWater {
+    display: block;
+    margin-top: 20px;
+    width: 200px;
+    height: 40px;
+    font-size: 1.1em;
+    border-radius: 10px;
+    border: 2px solid #3d3bb3;
+    background-color: #ffffff;
+    text-decoration: none;
+    transition: 0.2s ease-in-out;
+}
+
+.feedWater:hover {
+    background-color: #f2f2ff;
+}
+
+.feedWater.active {
+    background-color: #524fe4;
+    color: #ffffff;
+}
+
+.div-info {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 20px;
+    width: 300px;
+    height: 30px;
+    background-color: #3d3bb3;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.chrono {
+    display: block;
+    text-align: center;
+    width: 170px;
+    font-size: 1.06em;
+    background-color: #ffffff;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.score {
+    display: block;
+    text-align: center;
+    width: 100px;
+    font-size: 1.06em;
+    background-color: #ffffff;
+    padding: 5px;
+    border-radius: 5px;
+}
+

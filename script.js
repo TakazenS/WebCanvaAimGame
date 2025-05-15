@@ -1,35 +1,51 @@
+// Récupération des éléments dans le DOM
 const canvas = document.getElementById('canvas');
 var ctx = canvas.getContext("2d");
-const feedWater = document.getElementById('feedWater'); 
-
-const marmiteImg = new Image();
-marmiteImg.src = './images/marmite.png';
-
-const marmiteImgWidth = 150;
-const marmiteImgHeight = 80;
-
-let x, y;
-
-function randomPosition() {
-    x = Math.floor(Math.random() * (canvas.width - marmiteImgWidth));
-    y = Math.floor(Math.random() * (canvas.height - marmiteImgHeight));
-}
-
-function drawMarmite() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    ctx.drawImage(marmiteImg, x, y, marmiteImgWidth, marmiteImgHeight);
-}
-
-marmiteImg.onload = function() {
-    randomPosition();
-    drawMarmite();
-}
-
+const startBtn = document.getElementById('startBtn'); 
 const showScore = document.getElementById('score');
-let score = 0;
+const showChrono = document.getElementById('chrono');
+const saveSettingBtn = document.getElementById('save-settings-btn');
+const resetSettingBtn = document.getElementById('reset-settings-btn');
 
+// Initialisation des constantes
+const redDottImg = new Image();
+redDottImg.src = './images/redDott.png';
+
+// Initialisation des variables
+let x, y;
+let score;
+let startTime;
+let interval;
+let timer = 15;
+let redDottSize = 80;
+
+// Valeurs de base de chaque paramètre
+const defaultSetting = {
+    defaultTimer: 15,
+    redDottSize: 80
+};
+
+// Fonctions qui randomise la position de l'image
+function randomPosition() {
+    x = Math.floor(Math.random() * (canvas.width - redDottSize));
+    y = Math.floor(Math.random() * (canvas.height - redDottSize));
+}
+
+// Fonctions qui affiche l'image
+function drawredDott() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.drawImage(redDottImg, x, y, redDottSize, redDottSize);
+}
+
+// Affiche l'image à une position alléatoire au chargement
+redDottImg.onload = function() {
+    randomPosition();
+    drawredDott();
+}
+
+// Gère les événement sur l'image et le score
 canvas.addEventListener("click", function(event) {
-    if (!feedWater.classList.contains('active')) {
+    if (!startBtn.classList.contains('active')) {
         return;
     }
 
@@ -39,45 +55,112 @@ canvas.addEventListener("click", function(event) {
 
     if (
         clickX >= x &&
-        clickX <= x + marmiteImgWidth &&
+        clickX <= x + redDottSize &&
         clickY >= y &&
-        clickY <= y + marmiteImgHeight
+        clickY <= y + redDottSize
     ) {
         randomPosition();
-        drawMarmite();
+        drawredDott();
         score++;
+        showScore.textContent = 'Score : ' + score;
+    } else {
+        if (score === 0) {
+            score = 0;
+        } else {
+            score--;
+        }
+
         showScore.textContent = 'Score : ' + score;
     }
 });
 
-const showChrono = document.getElementById('chrono');
-let startTime;
-let interval;
-
-feedWater.addEventListener('click', () => {
-    if (feedWater.classList.contains('active')) {
-        feedWater.classList.remove('active');
+// Passe startBtn en "active" ou l'enlève lors d'un clic,
+// déclanche le timer et initialise le score si besoins
+startBtn.addEventListener('click', () => {
+    if (startBtn.classList.contains('active')) {
+        startBtn.classList.remove('active');
+        startBtn.textContent = 'Start Aim Test'
+        document.getElementById('timer').value = timer;
+        document.getElementById('redDott').value = redDottSize;
         clearInterval(interval);
-        showChrono.textContent = '0.00 secondes';
         score = 0;
-        showScore.textContent = 'Score : 0';
     } else {
+        startBtn.textContent = 'Stop Aim Test'
         showScore.textContent = 'Score : 0';
         score = 0;
-        feedWater.classList.toggle('active');
+        startBtn.classList.toggle('active');
         startTime = performance.now();
+
+        document.getElementById('timer').value = timer;
+        document.getElementById('redDott').value = redDottSize;
 
         interval = setInterval(() => {
             const now = performance.now();
             const elapsed = (now - startTime) / 1000;
 
-            if (elapsed >= 15) {
+            if (elapsed >= timer) {
                 clearInterval(interval);
-                showChrono.textContent = '15.00 secondes';
-                feedWater.classList.remove('active');
+                showChrono.textContent = `${timer} Seconds`;
+                startBtn.classList.remove('active');
             } else {   
-                showChrono.textContent = '' + elapsed.toFixed(2) + ' secondes';
+                showChrono.textContent = '' + elapsed.toFixed(2) + ' Seconds';
             }
         }, 10);
     }
 });
+
+// Récupère les valeurs des paramètres et les sauvegardent
+// pour les prochaines parties
+saveSettingBtn.addEventListener('click', () => {
+    saveSettingBtn.classList.add('active');
+    setTimeout(() => {
+        saveSettingBtn.classList.remove('active');
+    }, 1000);
+
+    const basedTimer = timer;
+    const basedRedDottSize = redDottSize;
+
+    if (startBtn.classList.contains('active')) {
+        startBtn.classList.remove('active');
+        timer = basedTimer;
+        document.getElementById('timer').value = basedTimer;
+        redDottSize = basedRedDottSize;
+        document.getElementById('redDott').value = basedRedDottSize;
+        randomPosition();
+        drawredDott();
+        clearInterval(interval);
+        return;
+    }
+
+    timer = parseInt(document.getElementById('timer').value);
+    if (timer < 10) {
+        timer = basedTimer;
+        document.getElementById('timer').value = basedTimer;
+        window.alert('The timer cannot be set below 10 seconds !');
+    }
+
+    redDottSize = parseInt(document.getElementById('redDott').value);
+    randomPosition();
+    drawredDott();
+    if (redDottSize < 40 || redDottSize > 150) {
+        redDottSize = basedRedDottSize;
+        document.getElementById('redDott').value = basedRedDottSize;
+        randomPosition();
+        drawredDott();
+        window.alert('The size of the aim cannot be set below 40px and above 150px !');
+    }
+});
+
+// Reset les valeurs par défauts de chaques paramètres
+resetSettingBtn.addEventListener('click', () => {
+    resetSettingBtn.classList.add('active');
+    setTimeout(() => {
+        resetSettingBtn.classList.remove('active');
+    }, 600);
+
+    timer = defaultSetting.defaultTimer;
+    document.getElementById('timer').value = defaultSetting.defaultTimer;
+    redDott = defaultSetting.redDottSize;
+    document.getElementById('redDott').value = defaultSetting.redDottSize;
+});
+

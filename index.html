@@ -9,20 +9,47 @@
 <body class="body">
     <main class="main">
         <section class="settings-section">
-
+            <header class="settings-header">
+                <h2 class="titre-side-headers">SETTINGS</h2>
+            </header>
+            <section class="settings-container">
+                <div class="settings-inputs">
+                    <div class="wrapper-setting">
+                        <label class="labels" for="timer">Timer :</label>
+                        <input type="number" name="timer" class="inputs" id="timer" value="15" placeholder="Default : 15 sec">
+                    </div>
+                    <div class="wrapper-setting">
+                        <label class="labels" for="redDott">Aim Size :</label>
+                        <input type="number" name="redDott" class="inputs" id="redDott" value="80" placeholder="Default : 80 px">
+                    </div>
+                </div>
+            </section>
+            <footer class="settings-footer">
+                <button id="save-settings-btn" class="settings-btn">Save Settings</button>
+                <button id="reset-settings-btn" class="settings-btn">Reset Settings</button>
+            </footer>
         </section>
-        <div class="wrapper">
-            <canvas id="canvas" class="canvas" width="1000" height="600">Désolé, votre navigateur ne prend pas en charge &lt;canvas&gt;.</canvas>
-        </div>
+        <section class="middle-wrapper">
+            <div class="wrapper">
+                <canvas id="canvas" class="canvas" width="1000" height="600">Désolé, votre navigateur ne prend pas en charge &lt;canvas&gt;.</canvas>
+            </div>
+            <div class="info-div">
+                <button id="startBtn" class="startBtn">Start Aim Test</button>
+                <div class="div-info">
+                    <p id="chrono" class="chrono">0.00 Secondes</p>
+                    <p id="score" class="score">Score : 0</p>
+                </div>
+            </div>
+        </section>
         <section class="scoreboard-section">
-
+            <header class="scoreboard-header">
+                <h2 class="titre-side-headers">SCOREBOARD</h2>
+            </header>
+            <section class="scoreboard-container">
+                <p>no</p>
+            </section>
         </section>
     </main>
-    <button id="feedWater" class="feedWater">Donner de la soupe</button>
-    <div class="div-info">
-        <p id="chrono" class="chrono">0.00 Secondes</p>
-        <p id="score" class="score">Score : 0</p>
-    </div>
     <script src="./script.js"></script>
 </body>
 </html>

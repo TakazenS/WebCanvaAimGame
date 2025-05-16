@@ -170,7 +170,8 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    height: 95%;
+    height: 90%;
+    bottom: 10px;
     width: 100%;
     background-color: rgb(255, 255, 255);
 }
@@ -182,6 +183,11 @@
 
 .scoreboard-container {
     display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    margin-top: 20px;
 }
 
 .canvas {

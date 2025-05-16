@@ -142,12 +142,12 @@ saveSettingBtn.addEventListener('click', () => {
     redDottSize = parseInt(document.getElementById('redDott').value);
     randomPosition();
     drawredDott();
-    if (redDottSize < 40 || redDottSize > 150) {
+    if (redDottSize < 40 || redDottSize > 200) {
         redDottSize = basedRedDottSize;
         document.getElementById('redDott').value = basedRedDottSize;
         randomPosition();
         drawredDott();
-        window.alert('The size of the aim cannot be set below 40px and above 150px !');
+        window.alert('The size of the aim cannot be set below 40px and above 200px !');
     }
 });
 
@@ -162,5 +162,7 @@ resetSettingBtn.addEventListener('click', () => {
     document.getElementById('timer').value = defaultSetting.defaultTimer;
     redDott = defaultSetting.redDottSize;
     document.getElementById('redDott').value = defaultSetting.redDottSize;
+    randomPosition();
+    drawredDott();
 });
 

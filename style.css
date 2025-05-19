@@ -1,11 +1,11 @@
 @font-face {
     font-family: 'DM_Sans';
-    src: url('./fonts/DM\ sans/DMSans-VariableFont_opsz,wght.ttf') format('truetype');
+    src: url('./public/fonts/DM\ sans/DMSans-VariableFont_opsz,wght.ttf') format('truetype');
 }
 
 @font-face {
     font-family: 'DM_Sans_Italic';
-    src: url('./fonts/DM\ sans/DMSans-Italic-VariableFont_opsz,wght.ttf') format('truetype');
+    src: url('./public/fonts/DM\ sans/DMSans-Italic-VariableFont_opsz,wght.ttf') format('truetype');
 }
 
 * {

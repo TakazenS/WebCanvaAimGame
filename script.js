@@ -9,7 +9,7 @@ const resetSettingBtn = document.getElementById('reset-settings-btn');
 
 // Initialisation des constantes
 const redDottImg = new Image();
-redDottImg.src = './images/redDott.png';
+redDottImg.src = './public/images/redDott.png';
 
 // Initialisation des variables
 let x, y;

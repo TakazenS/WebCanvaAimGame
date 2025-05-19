@@ -1,0 +1,25 @@
+services:
+  node:
+    build:
+      context: ./node
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./node:/app
+    depends_on:
+      - db
+
+  db:
+    image: mysql:8
+    ports:
+      - "3305:3305"
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: aimtrainer
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: p@ssw0rd
+
+  adminer:
+    image: adminer
+    ports:
+      - "8085:8080"

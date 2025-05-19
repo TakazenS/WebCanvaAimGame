@@ -36,7 +36,9 @@ function keepAlive() {
 // Exécuter keepAlive toutes les 10 minutes
 setInterval(keepAlive, 600000);
 
+// Récupérer les 10 meilleurs score
 
+// Place le score 
 
 // Test de la connexion à la base de données
 db.connect((err) => {
